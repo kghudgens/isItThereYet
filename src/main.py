@@ -1,7 +1,10 @@
-import scraper
+from scraper import Scraper
+
 
 def main():
-    scraper.activeDriver()
-    
+    scraper = Scraper()
+    scraper.companySelector()
+
+
 if __name__ == "__main__":
     main()
