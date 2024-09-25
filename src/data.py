@@ -25,6 +25,6 @@ class FormatData:
             print("\n")
             for k, v in self.structured_data.items():
                 file.write(k + "\n")
-                file.write(v + "\n")
+                file.write(v + "\n\n")
 
             file.close()
