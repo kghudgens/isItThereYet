@@ -1,4 +1,4 @@
-import smtplib
+import smtplib, ssl
 from credentials import my_secrets
 
 from email.message import EmailMessage
@@ -22,11 +22,12 @@ class SendEmail:
         msg["From"] = self.my_email
         msg["To"] = self.my_email
 
-        self.send_email(msg)
+        self.send_mail(msg)
 
-    def send_email(self, msg):
-        s = smtplib.SMTP(self.local_addr, 587)
-        s.connect(self.local_addr, 587)
-        s.login(self.my_email, self.my_password)
-        s.send_message(msg)
-        s.quit()
+    def send_mail(self, msg):
+        port = 465
+        context = ssl._create_unverified_context()
+
+        with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+            server.login(self.my_email, self.my_password)
+            server.sendmail(self.my_email, self.my_email, msg)
