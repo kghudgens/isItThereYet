@@ -1,4 +1,5 @@
 import smtplib, ssl
+import time
 from credentials import my_secrets
 
 from email.message import EmailMessage
@@ -9,8 +10,8 @@ class SendEmail:
     def __init__(self) -> None:
 
         self.my_email = my_secrets.get("username")
+        self.recipient = my_secrets.get("recipient")
         self.my_password = my_secrets.get("password")
-        self.local_addr = my_secrets.get("local")
 
     def create_email_content(self):
         text_file = "isItThere.txt"
@@ -20,14 +21,14 @@ class SendEmail:
 
         msg["Jobs currently posted for Japan"] = f"The contents of {text_file}"
         msg["From"] = self.my_email
-        msg["To"] = self.my_email
+        msg["To"] = self.recipient
 
         self.send_mail(msg)
 
     def send_mail(self, msg):
         port = 465
-        context = ssl._create_unverified_context()
+        context = ssl.create_default_context()
 
-        with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+        with smtplib.SMTP_SSL("smtp.mail.yahoo.com", port, context=context) as server:
             server.login(self.my_email, self.my_password)
-            server.sendmail(self.my_email, self.my_email, msg)
+            server.sendmail(self.my_email, self.recipient, msg)
