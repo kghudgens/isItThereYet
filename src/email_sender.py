@@ -29,6 +29,7 @@ class SendEmail:
         port = 465
         context = ssl.create_default_context()
 
-        with smtplib.SMTP_SSL("smtp.mail.yahoo.com", port, context=context) as server:
+        with smtplib.SMTP("smtp.mail.yahoo.com", port) as server:
+            server.starttls()
             server.login(self.my_email, self.my_password)
             server.sendmail(self.my_email, self.recipient, msg)

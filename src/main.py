@@ -12,8 +12,8 @@ def main():
     dataFormatter.prep_data()
     dataFormatter.create_results_file()
 
-    sender = SendEmail()
-    sender.create_email_content()
+    # sender = SendEmail()
+    # sender.create_email_content()
 
 
 if __name__ == "__main__":
