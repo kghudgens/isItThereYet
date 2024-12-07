@@ -11,6 +11,7 @@ class Scraper:
             1: "https://careers.boozallen.com/jobs/search/?1485=Japan&listFilterMode=1&jobRecordsPerPage=20&",
             2: "https://www.lockheedmartinjobs.com/search-jobs/Japan",
             3: "https://www.northropgrumman.com/jobs?_job_search=Japan",
+            4: "https://careers.leidos.com/search/jobs?q=Japan",
         }
         self.unstructured_data = {}
 
@@ -47,6 +48,18 @@ class Scraper:
 
             #     for i in reqs:
             #         print(i.find_element(By.TAG_NAME, "h2").text)
+
+            case 4:
+                print("in the leidos block")
+                leidos_list = []
+                self.driver.get(url)
+                reqs = self.driver.find_elements(By.PARTIAL_LINK_TEXT, "Engineer")
+
+                print(len(reqs))
+                for i in reqs:
+                    leidos_list.append(i.text)
+
+                self.unstructured_data["Leidos"] = leidos_list
 
     def close_driver(self):
         self.driver.close()
